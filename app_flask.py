@@ -9,7 +9,7 @@ from training_1 import ConsecutiveNPChunker, ConsecutiveNPChunkTagger
 app = Flask(__name__)
 
 # Load the trained chunker model
-with open("NBmodel_new.pkl", "rb") as f:
+with open("NBmodel.pkl", "rb") as f:
     loaded_chunker = pickle.load(f)
 print("Model loaded successfully!")
 
