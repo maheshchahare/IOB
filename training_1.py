@@ -1,32 +1,6 @@
 import gzip
 import pickle
 
-filename = "atis.fold0.pkl.gz"
-f = gzip.open(filename, "rb")
-try:
-    train_set, valid_set, test_set, dicts = pickle.load(f, encoding="latin1")
-except Exception as e:
-    print(e)
-    train_set, valid_set, test_set, dicts = pickle.load(f)
-finally:
-    f.close()
-
-train_x, _, train_label = train_set
-test_x, _, test_label = test_set
-
-words = dicts["words2idx"]
-labels = dicts["labels2idx"]
-
-id_to_words = {words[k]: k for k in words}
-id_to_labels = {labels[k]: k for k in labels}
-
-w = []
-for index in range(len(train_x)):
-    w.append([id_to_words[id] for id in train_x[index]])
-
-test = []
-for index in range(len(test_x)):
-    test.append([id_to_words[id] for id in train_x[index]])
 
 import nltk
 from nltk import pos_tag
@@ -61,12 +35,7 @@ def convert_to_tree(tokens):
 
 
 # Convert each tokenized sentence into an nltk.Tree format
-train_sents = [convert_to_tree(sent) for sent in w]
 
-# Print the structured output
-for tree in train_sents:
-    # print(tree)
-    break
 
 # import nltk
 # from nltk import pos_tag
@@ -109,17 +78,6 @@ def convert_to_tree(tokens):
 #     ['does', 'delta', 'airlines', 'fly', 'to', 'boston']
 # ]
 
-# Convert tokenized sentences to Tree format
-train_sents = [convert_to_tree(sent) for sent in w]
-
-# 🔹 **Fix: Ensure the tree is in the correct format for `tree2conlltags()`**
-train_conll = []
-for tree in train_sents:
-    try:
-        train_conll.append(tree2conlltags(tree))
-    except IndexError as e:
-        print("Error with tree:", tree)
-        raise e
 
 
 # Feature extraction function
@@ -188,19 +146,6 @@ class ConsecutiveNPChunker(nltk.ChunkParserI):
         return conlltags2tree(conlltags)
 
 
-# Train the chunker
-chunker = ConsecutiveNPChunker(train_conll)
-
-# Test the trained chunker
-test_sentence = "show me flights from los angeles to new york"
-test_tokens = test_sentence.split()
-parsed_tree = chunker.parse(test_tokens)
-
-# Print the chunked tree
-# print(parsed_tree)
-
-
-iob_tags = tree2conlltags(parsed_tree)
 
 
 # Function to compute accuracy in percentage
@@ -234,7 +179,7 @@ def evaluate_chunker(chunker, test_sents):
 import pickle
 
 # Save the trained chunker
-with open("NBmodel.pkl", "wb") as f:
-    pickle.dump(chunker, f)
+# with open("NBmodel.pkl", "wb") as f:
+#     pickle.dump(chunker, f)
 
 # print("Model saved successfully!")
