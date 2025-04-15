@@ -60,7 +60,7 @@ for tree in train_trees:
 chunker = ConsecutiveNPChunker(train_conll)
 
 # Save the model
-with open("NBmodel_new.pkl", "wb") as f:
+with open("NBmodel.pkl", "wb") as f:
     pickle.dump(chunker, f)
 
 print("✅ Model trained and saved successfully as 'NBmodel_new.pkl'")
