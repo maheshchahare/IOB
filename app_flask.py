@@ -3,7 +3,7 @@ import pickle
 from nltk.chunk import tree2conlltags
 from flask import Flask, request, render_template
 
-from training_new_data import ConsecutiveNPChunker, ConsecutiveNPChunkTagger
+from training_1 import ConsecutiveNPChunker, ConsecutiveNPChunkTagger
 
 # Initialize the Flask application
 app = Flask(__name__)
