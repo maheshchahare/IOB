@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOB Tagger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-box, .output-box {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            box-sizing: border-box;
+            min-height: 50px;
+            overflow: hidden; /* Prevent scrolling */
+            resize: none; /* Disable the resize handle */
+        }
+        .input-box {
+            height: auto;
+        }
+        .output-box {
+            font-family: monospace;
+            background-color: #e9e9e9;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            height: auto;
+            min-height: 50px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>IOB Tagger</h1>
+        <form method="POST">
+            <textarea class="input-box" name="sentence" placeholder="Enter a sentence..." rows="4">{{ request.form['sentence'] if request.method == 'POST' else '' }}</textarea>
+            <button type="submit">Tag Sentence</button>
+        </form>
+        
+        {% if result %}
+            <h3>IOB Tags:</h3>
+            <textarea class="output-box" readonly>{{ result }}</textarea>
+        {% endif %}
+    </div>
+
+    <script>
+        // Auto-resize output text area to fit content dynamically
+        function resizeTextArea() {
+            var outputBox = document.querySelector('.output-box');
+            outputBox.style.height = 'auto';  // Reset height to auto to shrink it
+            outputBox.style.height = (outputBox.scrollHeight) + 'px';  // Set height based on content height
+        }
+
+        // Wait for the content to be rendered and adjust the output box height
+        window.onload = function() {
+            resizeTextArea();
+        };
+
+        // Trigger resize when new content is added (after form submission)
+        {% if result %}
+            window.onload = function() {
+                resizeTextArea();
+            };
+        {% endif %}
+    </script>
+
+</body>
+</html>

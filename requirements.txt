@@ -1,0 +1,7 @@
+nltk==3.9.1
+matplotlib==3.10.1
+scikit-learn==1.6.1
+pandas==2.2.3
+svgling==0.5.0
+dill==0.3.9
+gradio==5.22.0
