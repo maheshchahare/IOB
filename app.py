@@ -10,7 +10,7 @@ from np_chunker_model import ConsecutiveNPChunker, ConsecutiveNPChunkTagger
 app = Flask(__name__)
 
 # Load the trained Naive Bayes chunker model
-with open("NBmodel_new.pkl", "rb") as f:
+with open("NBmodel.pkl", "rb") as f:
     loaded_chunker = pickle.load(f)
 print("✅ Model loaded successfully!")
 
