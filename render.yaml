@@ -5,4 +5,4 @@ services:
     buildCommand: |
       pip install -r requirements.txt
       python nltk_downloader.py  # Optional: Downloads NLTK corpora
-    startCommand: waitress-serve --listen=0.0.0.0:$PORT app_flask:app
+    startCommand: waitress-serve --listen=0.0.0.0:$PORT app:app
