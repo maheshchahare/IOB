@@ -6,6 +6,8 @@ from flask import Flask, request, render_template
 # ✅ Import model class definitions from shared module
 from np_chunker_model import ConsecutiveNPChunker, ConsecutiveNPChunkTagger
 
+nltk.data.path.append('./nltk_data')
+
 # Initialize Flask app
 app = Flask(__name__)
 
